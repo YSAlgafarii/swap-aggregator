@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Swap Rate Aggregator</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<main>
+  <h1>Swap Rate Aggregator</h1>
+  <p class="sub">Compare swap rates across exchanges before you swap</p>
+  <form id="quote-form">
+    <div class="row">
+      <input id="from" type="text" placeholder="From (BTC)" autocomplete="off" required />
+      <input id="to" type="text" placeholder="To (ETH)" autocomplete="off" required />
+      <input id="amount" type="number" step="any" min="0" placeholder="Amount" required />
+    </div>
+    <button type="submit" id="get-rates">Get rates</button>
+  </form>
+  <div id="results" class="hidden">
+    <div id="summary" class="summary"></div>
+    <table>
+      <thead><tr><th>Exchange</th><th>You receive</th><th>Time</th><th></th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div id="notes"></div>
+  </div>
+  <div id="error" class="error hidden"></div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
