@@ -5,7 +5,8 @@
 //
 // AFFILIATE IDs: once approved, paste your ChangeNOW ref id below.
 const AFFILIATE_IDS = {
-  changenow: "", // e.g. "yourrefid" -> swap link becomes ?ref=yourrefid
+  changenow: "", // ChangeNOW ref id pending -> swap link becomes ?ref=yourrefid
+  simpleswap: "2e1ebcccc205",
 };
 
 const form = document.getElementById("quote-form");
@@ -110,7 +111,7 @@ form.addEventListener("submit", async (e) => {
           <td>${q.name}</td>
           <td class="receive">${fmt(q.receiveAmount)} ${to.toUpperCase()}</td>
           <td>${q.estimatedTime || "-"}</td>
-          <td>${q.market ? '<span class="mkt">reference</span>' : `<a class="swap" href="${q.swapUrl}" target="_blank" rel="noopener">Swap</a>`}</td>
+          <td>${q.market ? '<span class="mkt">reference</span>' : `<a class="swap" href="${q.swapUrl}" target="_blank" rel="noopener">ChangeNOW</a> · <a class="swap" href="https://simpleswap.io/?ref=2e1ebcccc205" target="_blank" rel="noopener">SimpleSwap</a>`}</td>
         </tr>`).join("");
       summaryEl.textContent = summaryText + " Rates are estimates; confirm on the swap page.";
       notesEl.innerHTML = `<div class="note">SimpleSwap quotes are not included in this static version. Exolix blocks server/browser API calls. Rates are estimates only - do not move real money without checking the swap page yourself.</div>`;
