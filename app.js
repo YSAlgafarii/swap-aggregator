@@ -54,7 +54,16 @@ async function marketRate(from, to, amount) {
   const MAP = { btc:"bitcoin", eth:"ethereum", usdt:"tether", usdc:"usd-coin", sol:"solana", bnb:"binancecoin", xrp:"ripple", ada:"cardano", doge:"dogecoin", trx:"tron", ltc:"litecoin", ton:"the-open-network", dot:"polkadot", matic:"matic-network", avax:"avalanche-2" };
   const fid = MAP[from] || from, tid = MAP[to] || to;
   try {
-    const data = await getJson(`https://api.coingecko.com/api/v3/simple/price?ids=${fid},${tid}&vs_currencies=usd`, 6000);
+    // CoinGecko free tier rate-limits sometimes; retry a few times
+    let data = null;
+    for (let i = 0; i < 4 && !data; i++) {
+      try {
+        data = await getJson(`https://api.coingecko.com/api/v3/simple/price?ids=${fid},${tid}&vs_currencies=usd`, 6000);
+      } catch (e) {
+        if (i === 3) throw e;
+        await new Promise(r => setTimeout(r, 700 * (i + 1)));
+      }
+    }
     const fu = data[fid] && data[fid].usd, tu = data[tid] && data[tid].usd;
     if (!fu || !tu) return null;
     const receive = (amount * fu) / tu;
